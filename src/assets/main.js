@@ -19,24 +19,21 @@ async function fetchData(urlApi) {
 
 (async () => {
   try {
-    const tracks = await fetchData(API);
+    const musics = await fetchData(API);
     let view = `
-    ${tracks.item.map(track => `
+    ${musics.tracks.map((music) => `
     <div class="group relative">
       <div class="w-full bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none" >
-      <img src="${track.images.background}" alt="${track.subtitle}" class="w-full" />
+      <img src="${music.images.coverart}" alt="${music.subtitle}" class="w-full" />
       </div>
       <div class= "mt-4 flex justify-between" >
-        <h3 class="text-sm text-gray-700" >
+        <a href="${music.share.href}" class="text-sm text-gray-700" >
           <span aria-hidden="true" class="absolute inset-0"></span>
-          ${track.title}
-        </h3>
+          ${music.title}
+        </a>
       </div>
     </div>
-    `
-      )
-      .slice(0, 5)
-      .join("")}
+    `).slice(0, 20).join("")}
     `;
     content.innerHTML = view;
   } catch (error) {
